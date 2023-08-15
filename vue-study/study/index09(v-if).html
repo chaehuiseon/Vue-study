@@ -1,0 +1,58 @@
+
+<!-- v-if : 토글 비용이 높고, 초기 렌더링에서 조건이 거짓인 경우 아무것도 하지 않습니다.
+v-show : 훨씬 단순, 초기 렌더링 비용이 더 높습니다.
+매우 자주 바꾸기를 원한다면 v-show를, 런타임 시 조건이 바뀌지 않으면 v-if를 권장-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>view 기초 익히기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <style>
+        .red{
+            color: red;
+        }
+        .font-bold{
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+    <div id ="app">
+        <!--여러개 한번에 하고 싶으면 template 써야함.-->
+        <!-- v-if , v-else조건에 맞게 동작 -->
+        <template v-if="show">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </template>
+
+        <!--<div v-if>Yes</div>-->
+        <div v-else>No</div>
+        <br>
+        <!-- 아래 토글버튼을 눌러서 위의 조건으로 들어가는 data(변수)를 조정해주고 있다. -->
+        <button @click = "toggleShow">Toggle</button>
+
+    </div>
+    <script>
+        new  Vue({
+            el :'#app', 
+            data : {
+                show: true
+            },
+
+            methods : {
+                toggleShow(){
+                    this.show = !this.show
+                }
+
+    
+               
+            }
+        
+        })
+    </script>
+</body>
+</html>

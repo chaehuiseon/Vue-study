@@ -1,0 +1,66 @@
+
+<!-- v-if : 토글 비용이 높고, 초기 렌더링에서 조건이 거짓인 경우 아무것도 하지 않습니다.
+v-show : 훨씬 단순, 초기 렌더링 비용이 더 높습니다.
+매우 자주 바꾸기를 원한다면 v-show를, 런타임 시 조건이 바뀌지 않으면 v-if를 권장
+
+v-if : 조건부 블럭안의 이벤트 리스너와 자식 컴포넌트가 토글하는 동안 적절하게 제거되고 다시 만들어지기 때문에 "진짜" "조건부 렌더링". 참이 될 때 랜더링함.
+v-show: v-show가 있는 엘리먼트는 항상 렌더링 되고 DOM에 남아있음. v-show는 단순히 엘리먼트에 display CSS 속성을 토글함.    -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>view 기초 익히기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+
+</head>
+<body>
+    <div id ="app">
+        {{ name }}<br>
+        <button @click="changeText">Click</button>
+        
+
+    </div>
+
+    <div id ="app1">
+        {{ name }}<br>
+        <button @click="changeText">Click</button>
+    </div>
+    <script>
+        //view instance 생성
+        //view instance 끼리 데이터 변경하고 싶으면 const로 인스턴스 저장하면됨. this는 선언된 인스턴스를 가리킴.
+        const app = new  Vue({
+            el :'#app', 
+            data:{
+                name : "heeseon"
+
+            },
+            methods:{
+                changeText() {
+                    //app1 인스턴스의 name을 변경해라.
+                    app1.name = "heeseon updated";
+                }
+                
+            }
+        
+        })
+
+        const app1 = new  Vue({
+            el :'#app1', 
+            data:{
+                name : "heeseon1"
+
+            },
+            methods:{
+                changeText() {
+                    app.name = "heeseon1 updated";
+                }
+                
+            }
+        
+        })
+
+    </script>
+</body>
+</html>

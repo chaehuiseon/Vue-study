@@ -1,0 +1,63 @@
+
+
+<!--
+    watch: 지정한 대상의 값이 변경될 때마다 정의한 함수가 실행됨.
+
+    [computed와 watch]
+     참조하고 있는 값이 변경될 때마다 정의된 계산식에 따라 값을 출력하는 computed와 다르게 watch는 값이 변경될 때 실행되는 함수를 우리가 지정할 수 있습니다.
+    즉, computed가 계산된 값을 출력하는 용이라면, watch는 어떤 조건이 되었을 때 함수를 실행시키기 위한 트리거로서 사용할 수 있다는 의미
+    참고 및 예제 : https://medium.com/@hozacho/%EB%A7%A8%EB%95%85%EC%97%90vuejs-computed-vs-watch-%EC%96%B8%EC%A0%9C%EC%8D%A8%EC%95%BC%ED%95%A0%EA%B9%8C-d25316c4ef42
+    (computed에서 alert가 있는데 사용하고 싶으면 html코드 안에서든 어쨌든 써야함. )
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>view 기초 익히기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id ="app">
+        <!-- 헬로우, click버튼, 아니오 가 있고, 
+            click버튼을 누르면 changeMessage 메서드가 발동되어 기존 message 헬로우가 chaehuiseon으로 변경되고 
+            watch는 message가 변경되는 것을 보고 있다가 변경되는 것을 감지하고 updated를 기존 아니오에서 네로 변경 -->
+        {{message}}
+        <button @click="changeMessage">Click</button>
+        {{updated}}
+
+
+    </div>
+    <script>
+        new  Vue({
+            el :'#app', 
+            data : {
+                message : '헬로우',
+                updated:'아니오'
+            },
+
+            methods : {
+                changeMessage(){
+                    this.message = "chaehuiseon";
+                }
+    
+               
+            },
+            computed: {
+                reversedMessage(){
+                    //str 한글자씩 쪼개서 list로 만들고 순서 역정렬한다음 다시 str로...파이썬이랑 똑같네?..
+                    return this.message.split('').reverse().join('')
+                }
+            },
+            watch:{
+                //data의 message를 감시할 것이기 때문에 message로 이름을 똑같이 함.
+                message(newVal,oldVal){
+                    console.log(newVal,oldVal);
+                    this.updated = '네';
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+
+<!-- https://v2.vuejs.org/v2/guide/events 이벤트 핸들링 자료 -->
+<!--
+    [단방향 바인딩]
+    뷰 인스턴스의 data 객체가 가지고 있는 정보를 HTML 코드 내로 바인딩하여 그 값을 확인
+    methods 내의 함수로 데이터를 변경하면 변경하는 즉시 값이 변하는 것을 확인.
+    즉, Vue 인스턴스 -> Template와 같이 한 방향으로 데이터에 접근할 수 있는 것을 '단뱡향 데이터 바인딩'이라고 한다.
+
+    [양방향 데이터 바인딩]
+    Vue 인스턴스 ⇄ Template. 양방향 모두로 데이터에 접근할 수 있도록 하는 것.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>view 기초 익히기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id ="app">
+        <!--onclick 안에 js코드... 누르면 alert 눌러짐-->
+        <!--<button onclick="alert('hello world!')">Click Me</button>-->
+        <!-- vue 에서 사용 v-on:click="함수명"-->
+        {{year}}
+        <button v-on:click="plus">더하기</button>
+        <button v-on:click="minus">빼기</button>
+        <br>
+        <!--  v-on:submit.prevent에서 prevent : 리로딩하지 말아라. from은 원래 제출후 리로딩하게 되어 있음.-->
+        <form v-on:submit.prevent="submit">
+            <input type ='text'><br>
+            <button type = 'submit'>Submit</button>
+            <br>
+            <br>
+            <br>
+            <!--  v-on:keyup = @keyup (v-on == @) , 키보드를 눌렀다 올라갈때의 이벤트 처리-->
+            <!-- updateText하고 인자를 아무것도 넣어주지 않아도 알아서 들어감. -->
+            <!-- <input type = "text" :value="text" @keyup = "updateText"><br>
+            {{text}} -->
+            <!--위의 내용을 양방향 바인딩으로 변경 -->
+            <!-- html에 input 테그를 생성하고, v-model 디렉티브를 설정하고 data내의 text를 바라보도록 함.-->
+            <!-- input 태그의 v-model 디렉티브를 통해 Vue의 data 에 직접 데이터를 수정할 수 있게 됨. -->
+            <!-- {{ text }} 은 단방향 데이터 바인딩으로 Vue 인스턴스가 가지고 있는 정보를 보여주는 역할만을 하는데 
+                input 태그 내의 값을 변경해주자 여기에 보여지는 값도 바로 변경되는 것을 확인하실 수 있습니다.-->
+            <input type = "text" v-model = "text"><br>
+            {{text}}
+
+        </form>
+        
+    
+        
+    </div>
+    <script>
+        new  Vue({
+            el :'#app', 
+            data : {
+                text: 'text',
+                year : 2018
+
+            },
+
+
+            methods : {
+                plus() {
+                    this.year++;
+                },
+                minus() {
+                    this.year--;
+                },
+                submit() {
+                    alert('submitted');
+                    console.log('hello');
+                },
+                updateText(event){
+                    console.log(event); 
+                    this.text = event.target.value; //this.text --> data의 text를 실시간으로 변경하겠다.
+                }
+               
+            }
+        })
+    </script>
+</body>
+</html>

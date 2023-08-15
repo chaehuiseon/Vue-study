@@ -1,0 +1,125 @@
+
+<!-- 중복되는 data와 함수를 제거하기 위해서 view component를 사용
+view component도 하나의 인스턴스인데, 이걸 만들어 놓으면 어디서든지 사용할 수 있음.
+view component 공식 문서 : https://v2.ko.vuejs.org/v2/guide/components.html 
+1. 기본 HTML 엘리먼트를 확장하여 재사용 가능한 코드를 캡슐화하는 데 도움이 됨. 
+2. Vue 컴포넌트는 Vue 인스턴스이기도 합니다. 그러므로 모든 옵션 객체를 사용할 수 있습니다. (루트에만 사용하는 옵션은 제외)
+3. 같은 라이프사이클 훅을 사용할 수 있습니다.
+사용방법: 1. 전역 등록, 2. 전역등록 
+전역등록 : 뷰인스턴스 생성전에 만들어줘야함.(루트 Vue 인스턴스를 인스턴스화하기 전에 컴포넌트가 등록되어 있는지 확인하십시오)
+        -- Vue.component(tagName, options) 
+        -- 사용을하지 않더라도 최종 빌드에 들어가 있음. 파일용량 커지고, 사용자가 내려받아야 하는 용량이 커지는 거. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>view 기초 익히기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+
+</head>
+<body>
+    <div id ="app">
+        <!-- 컴포넌트로 작동X -->
+        <!-- {{ name }}<br>
+        <button @click="changeText">Click</button> -->
+
+        <hr>
+        <!-- 컴포넌트로 작동O -->
+        <heeseon-button></heeseon-button>
+        
+
+    </div>
+
+    <div id ="app1">
+        <!-- {{ name }}<br>
+        <button @click="changeText">Click</button> -->
+
+        <hr>
+
+        <heeseon-button></heeseon-button>
+    </div>
+    <script>
+        //컴포넌트 안에서 컴포넌트 사용할 수 있다.
+        Vue.component('hello-world',{
+            template : `<div>Hello World!!</div>`
+        });
+
+
+        //컴포넌트 전역 등록
+        //Vue.component(tagName, options)
+        //tagName- 이름, options - 기능
+        //template 할때 <div></div>로 감싸주지 않으면 error뜸. outside root element will be ignored...
+        //테그로 감싸줘야하는 규칙있음
+        Vue.component('heeseon-button',{
+            template: `
+            <div>
+                {{ name }}<br>
+                <hello-world></hello-world>
+                <button @click="changeText">Click</button>    
+            </div>
+            
+            `,
+            //아래 내용은 다시 자세히 공부할 것!
+            //보통 재사용하는 컴포넌트임. 보통 참조값을 넘기기 때문에, data 변경할때마다 다른 컴퍼넌트까지 영향을 미치게됨. (전역 변수꼴)
+            //따라서, 함수로 바꿔서 object를 리턴해줘야함.!!!
+            // 아래 처럼 하면 안됨.
+            // data:{
+            //     name : "heeseon"
+
+            // },
+            data(){
+                return {
+                    name : "heeseon"
+                }
+
+            },
+            methods:{
+                changeText() {
+                    //app1 인스턴스의 name을 변경해라.
+                    this.name = "heeseon updated";
+                }
+                
+            }
+
+        });
+
+
+        //view instance 생성
+        //view instance 끼리 데이터 변경하고 싶으면 const로 인스턴스 저장하면됨. this는 선언된 인스턴스를 가리킴.
+        const app = new  Vue({
+            el :'#app',
+            //아래는 컴포넌트로 합쳐짐. 
+            // data:{
+            //     name : "heeseon"
+
+            // },
+            // methods:{
+            //     changeText() {
+            //         //app1 인스턴스의 name을 변경해라.
+            //         this.name = "heeseon updated";
+            //     }
+                
+            // }
+        
+        })
+
+        const app1 = new  Vue({
+            el :'#app1', 
+            // data:{
+            //     name : "heeseon1"
+
+            // },
+            // methods:{
+            //     changeText() {
+            //         this.name = "heeseon1 updated";
+            //     }
+                
+            // }
+        
+        })
+
+    </script>
+</body>
+</html>

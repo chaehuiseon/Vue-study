@@ -1,0 +1,46 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>view 기초 익히기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id ="app">
+        <button @click="changeMessage">Click</button>
+        <!--computed: 미리 계산되어져 있음. 한번만 계산하고, 이후에 쓸때는 계산 된 값을 그대로 씀. 바뀔때 다시 한번만 계산함.-->
+        <!-- 만약, methods로 정의 했으면 reverseMessage()로 불러야했고, 쓸때마다 계산을 해야함.-->
+        <!--처음엔 계산된 값 우로헬 우로헬 우로헬이 보여지고, click을 누르면 changeMessage함수가 발동되어 smileme 로 message가 변경되고 다시 reverseMessage가 계산되어 보여짐. emelims emelims emelims-->
+        {{reversedMessage}} 
+        {{reversedMessage}}
+        {{reversedMessage}}
+
+    </div>
+    <script>
+        new  Vue({
+            el :'#app', 
+            data : {
+                message : '헬로우'
+            },
+
+            methods : {
+                changeMessage(){
+                    this.message = "smileme"
+                }
+    
+               
+            },
+            computed: {
+                reversedMessage(){
+                    //str 한글자씩 쪼개서 list로 만들고 순서 역정렬한다음 다시 str로...파이썬이랑 똑같네?..
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        })
+    </script>
+</body>
+</html>
