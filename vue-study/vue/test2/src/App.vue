@@ -11,6 +11,10 @@
       <router-link to="/">Home!</router-link>
       <!--ex) About!을 누르면 route-view부분(아래에 있는거)을 AboutView component로 바꿔준다.-->
       <router-link to="/about">About</router-link>
+      
+      <!--17강 home-->
+      <router-link to="/home2">Home2</router-link>
+
     </nav>
     <router-view/>
   </div>

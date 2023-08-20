@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import HomeView2 from '../views/HomeView2.vue'
+
 
 //vue가 vuerouter을 사용한다는 설정
 Vue.use(VueRouter)
@@ -11,6 +13,10 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path:'/home2',
+    component: HomeView2
   },
   {
     path: '/about',

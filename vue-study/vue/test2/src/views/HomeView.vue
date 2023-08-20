@@ -5,15 +5,18 @@
   2-2. export default{ components: { HeeSeonCoder }}
 -->
 <template> <!--html code-->
-<!--view component는 제일 위에 하나의 테그가 존재해야한다.-->
+<!--view component는 제일 위에 하나의 테그가 존재해야한다. 따라서, div ~-->
   <div>
     <h1>This is Home page!! HeeSeon Coder</h1>
-    <HeeSeonCoder/> <!--HeeSeonCoder component 불러와서 그림-->
+    <!--views는 페이지 컴포넌트다 보통. 여기 안에서 잘게 쪼개시키면 components에 쪼개서 넣어주면 된다.-->
+    <HeeSeonCoder title = 'homepage'/> <!--HeeSeonCoder component 불러와서 그림-->
   </div>
   
 </template>
-<script> // option들 (data, methods, watch, components 등....)
-import HeeSeonCoder from '@/components/HeeSeonCoder.vue'; //1. 불러옴
+<script> 
+import HeeSeonCoder from '@/components/HeeSeonCoder.vue'; //1. 불러옴. @ --> src를 가라킴.
+
+// option들 (data, methods, watch, components 등....)들어감.
 export default{
     //2. 쓰려고 등록
   components:{
